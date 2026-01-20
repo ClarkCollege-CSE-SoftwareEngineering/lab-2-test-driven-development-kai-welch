@@ -18,7 +18,7 @@ export function applyDiscount(price: number, discountPercent: number): number {
 export function calculateTax(
 	price: number,
 	taxRate: number,
-	isTaxExempt: boolean =false
+	isTaxExempt: boolean = false
 ): number {
 	if (price < 0) {
 		throw new Error("Price cannot be negative");
@@ -47,4 +47,14 @@ export interface CartTotals {
 	discount: number;
 	tax: number;
 	total: number;
+}
+
+export function calculateTotal(
+	items: CartItem[],
+	discountPercent: number = 0,
+	taxRate: number = 0
+): CartTotals {
+	// TODO: Implement this function using TDD
+	// Remember: write each test first, see it fail, then make it pass
+	throw new Error("Not implemented");
 }

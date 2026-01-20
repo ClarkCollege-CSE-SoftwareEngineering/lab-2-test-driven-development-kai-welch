@@ -63,25 +63,51 @@ describe("calculateTax", () => {
 });
 
 describe("calculateTotal", () => {
-	//TODO: Add at least 6 test cases
+	// TODO: Add at least 6 test cases
 	// Consider: single item, multiple items, discounts. tax-exempt items,
 	// empty cart, mixed tax-exempt and taxable items
 
+	// Sample test data
+	const Item1: CartItem = {
+		price: 100,
+		quantity: 1,
+		isTaxExempt: false
+	};
+
+	const Item2: CartItem = {
+		price: 60,
+		quantity: 2,
+		isTaxExempt: false
+	};
+
+	const Item3: CartItem = {
+		price: 100,
+		quantity: 3,
+		isTaxExempt: true
+	};
+
 	it("calculates totals for a single item", () => {
-		expect(calculateTotal([50, 1]), 20, 8).toBe(43.2);
+		expect(calculateTotal(Item1, 20, 8).total).toBe(86.4);
 	});
 
 	it("calculates totals for multiple items", () => {
-		expect(calculateTotal([50, 1], [30, 1]), 20, 8).toBe(69.12);
+		expect(calculateTotal([Item1, Item2], 15, 5).total).toBe(69.12);
 	});
 
 	it("applies discount before calculating tax", () => {
-
+		expect(calculateTotal(Item1, 20, 20).discount).toBe(80);
 	});
 
 	it("excludes tax-exempt items from tax calculation", () => {
-
+		expect(calculateTotal(Item3, 10, 15).tax).toBe(0);
 	});
 
 	// TODO: Add at least 2 more test cases
+	it("calculates totals for taxable and tax-exempt items", () => {
+		expect(calculateTotal([Item2, Item3], 20, 8).total).toBe(343.68);
+	});
+
+	it("handles item amount 0", () => {
+		expect(calculateTotal(Item4, 10, 8).total).toBe(0);
+	});
 })
