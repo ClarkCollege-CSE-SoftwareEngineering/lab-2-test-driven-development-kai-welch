@@ -86,20 +86,32 @@ describe("calculateTotal", () => {
 		isTaxExempt: true
 	};
 
+	const Item4: CartItem = {
+		price: 100,
+		quantity: 0,
+		isTaxExempt: true
+	};
+
+	const Item5: CartItem = {
+		price: 5.992,
+		quantity: 1,
+		isTaxExempt: false
+	};
+
 	it("calculates totals for a single item", () => {
-		expect(calculateTotal(Item1, 20, 8).total).toBe(86.4);
+		expect(calculateTotal([Item1], 20, 8).total).toBe(86.4);
 	});
 
 	it("calculates totals for multiple items", () => {
-		expect(calculateTotal([Item1, Item2], 15, 5).total).toBe(69.12);
+		expect(calculateTotal([Item1, Item2], 15, 5).total).toBe(196.35);
 	});
 
 	it("applies discount before calculating tax", () => {
-		expect(calculateTotal(Item1, 20, 20).discount).toBe(80);
+		expect(calculateTotal([Item1], 20, 0).discount).toBe(80);
 	});
 
 	it("excludes tax-exempt items from tax calculation", () => {
-		expect(calculateTotal(Item3, 10, 15).tax).toBe(0);
+		expect(calculateTotal([Item3], 10, 15).tax).toBe(0);
 	});
 
 	// TODO: Add at least 2 more test cases
@@ -108,6 +120,19 @@ describe("calculateTotal", () => {
 	});
 
 	it("handles item amount 0", () => {
-		expect(calculateTotal(Item4, 10, 8).total).toBe(0);
+		expect(calculateTotal([Item4], 10, 8).total).toBe(0);
 	});
-})
+
+	it("calculates total tax correctly", () => {
+		expect(calculateTotal([Item2], 0, 10).tax).toBe(12)
+	});
+
+	it("rounds all four values to 2 decimal places", () => {
+		const result = calculateTotal([Item5], 2, 8)
+
+		expect(result.subtotal).toBeCloseTo(5.99, 2);
+		expect(result.discount).toBeCloseTo(5.87, 2);
+		expect(result.tax).toBeCloseTo(0.47, 2);
+		expect(result.total).toBeCloseTo(6.34, 2)
+	});
+});

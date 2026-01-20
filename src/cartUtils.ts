@@ -12,7 +12,7 @@ export function applyDiscount(price: number, discountPercent: number): number {
 	}
 
 	const discountMultiplier =  1 - discountPercent / 100;
-	return price * discountMultiplier;
+	return Math.round(price * discountMultiplier * 100) / 100;
 }
 
 export function calculateTax(
@@ -56,5 +56,26 @@ export function calculateTotal(
 ): CartTotals {
 	// TODO: Implement this function using TDD
 	// Remember: write each test first, see it fail, then make it pass
-	throw new Error("Not implemented");
+	//throw new Error("Not implemented");
+
+	let subtotal = 0;
+	let tax = 0;
+
+	for (let i = 0; i < items.length; i++) {
+		const itemsPrice = items[i].price * items[i].quantity;
+		subtotal = subtotal + itemsPrice;
+		tax = tax + calculateTax(itemsPrice, taxRate, items[i].isTaxExempt);
+	}
+
+	subtotal = Math.round(subtotal * 100) / 100;
+	const discount = applyDiscount(subtotal, discountPercent);
+	tax = applyDiscount(tax, discountPercent);
+	const total = discount + tax;
+
+	return {
+		subtotal: subtotal,
+		discount: discount,
+		tax: tax,
+		total: total
+	}
 }
