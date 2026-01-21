@@ -107,7 +107,7 @@ describe("calculateTotal", () => {
 	});
 
 	it("applies discount before calculating tax", () => {
-		expect(calculateTotal([Item1], 20, 0).discount).toBe(80);
+		expect(calculateTotal([Item1], 20, 0).discount).toBe(20);
 	});
 
 	it("excludes tax-exempt items from tax calculation", () => {
@@ -131,7 +131,7 @@ describe("calculateTotal", () => {
 		const result = calculateTotal([Item5], 2, 8)
 
 		expect(result.subtotal).toBeCloseTo(5.99, 2);
-		expect(result.discount).toBeCloseTo(5.87, 2);
+		expect(result.discount).toBeCloseTo(0.12, 2);
 		expect(result.tax).toBeCloseTo(0.47, 2);
 		expect(result.total).toBeCloseTo(6.34, 2)
 	});

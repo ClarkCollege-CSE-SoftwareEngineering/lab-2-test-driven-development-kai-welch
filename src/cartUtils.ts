@@ -68,9 +68,9 @@ export function calculateTotal(
 	}
 
 	subtotal = Math.round(subtotal * 100) / 100;
-	const discount = applyDiscount(subtotal, discountPercent);
+	const discount = subtotal - applyDiscount(subtotal, discountPercent);
 	tax = applyDiscount(tax, discountPercent);
-	const total = discount + tax;
+	const total = subtotal - discount + tax;
 
 	return {
 		subtotal: subtotal,
