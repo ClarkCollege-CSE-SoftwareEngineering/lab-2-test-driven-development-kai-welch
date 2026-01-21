@@ -13,13 +13,9 @@ The purpose of this lab is to exprole TDD (test-driven development) through maki
 - `calculateTotal`: takse items in cart, dicount percentage, tax rate as inputs, and returns subtotal, discount, tax, and total value. In the function, first it loops through items and calculate subtotal, and during the loop, it also calculate total tax for taxable items. Then it calculate discount, apply the same discount to the tax. Finally, it finds total amount from subtotal, discount and tax. 
 
 # 4. Reflection section
-### Question from step 2.1
-- Why do we intentionally write a failing test first? How does this relate to what Fowler describes as "state verification"?
-### Question from step 2.4
-- In the mockist vs. classicist debate from Fowler's article, which approach are we using here? Why don't we need any test doubles for this function?
-### Question from step 3.3
-- Notice that we changed the implementation (added rounding), but our tests still pass because we used `toBeCloseTo`. This is what Kent C. Dodds means by "not testing implementation details." What would a test that does test implementation details look like?
-
 - How did TDD change the way you approached implementing `calculateTotal`?
+    TDD changed the way I creates the algorithm of `calculateTotal` function. Since I decided outcome of each input I will test, it helped me thinking more objectively about the process of calculating the price in the cart. Without TDD, I would have made the function based on how I would calculate the price of the cart. However, the function I made using TDD look more counter intuitive, and it looks more efficient that what I would've write without TDD.
 - Which of Fowler's test double types (dummy, stub. fake, spy, mock) did you need for this lab? Why or why not?
+    I didn't recognize any type while I made `calculateTotal`. However, in `applyDiscount` and `calculateTax`, there are tests that throw errors in specific conditions, and that are mocks. I didn't need most of other types because this program is simple enought and didn't need any test doubles. 
 - What's one thing that wolud have been different if you worte the implementation first?
+   If I wrote the implementation first, writing the test cases might be less aculate because I already have an expectation of how my code should work, and there is a chance that I write tests that should let my program pass unitntentionally.  
