@@ -4,7 +4,7 @@ import {
 	calculateTax,
 	calculateTotal,
 	CartItem,
-} from "../cartUtils.ts";
+} from "../../cartUtils";
 
 describe("applyDiscount", () => {
 	it("applies a percentage discount to a price", () => {
